@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkWindow" id="mainwindow">
+    <property name="resizable">False</property>
+    <property name="default_height">22</property>
+    <signal name="destroy" handler="on_mainwindow_destroy"/>
+    <child>
+      <object class="GtkHBox" id="hbox1">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkEntry" id="txtTweet">
+            <property name="width_request">400</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="max_length">140</property>
+            <property name="invisible_char">&#x2022;</property>
+            <signal name="changed" handler="on_txtTweet_changed"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="lblLeft">
+            <property name="width_request">40</property>
+            <property name="visible">True</property>
+            <property name="tooltip_text" translatable="yes">characters left...</property>
+            <property name="label" translatable="yes">140</property>
+            <property name="single_line_mode">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btnSend">
+            <property name="label" translatable="yes">Tweet</property>
+            <property name="width_request">80</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Post this tweet</property>
+            <signal name="clicked" handler="on_btnSend_clicked"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
