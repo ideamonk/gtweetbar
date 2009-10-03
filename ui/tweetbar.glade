@@ -14,13 +14,11 @@
             <property name="width_request">400</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="max_length">140</property>
             <property name="invisible_char">&#x2022;</property>
             <signal name="changed" handler="on_txtTweet_changed"/>
+            <signal name="button_release_event" handler="on_txtTweet_button_release_event"/>
           </object>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -40,12 +38,13 @@
         </child>
         <child>
           <object class="GtkButton" id="btnSend">
-            <property name="label" translatable="yes">Tweet</property>
-            <property name="width_request">80</property>
+            <property name="label" translatable="yes">Post</property>
+            <property name="width_request">60</property>
             <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="app_paintable">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Post this tweet</property>
             <signal name="clicked" handler="on_btnSend_clicked"/>
           </object>
           <packing>
