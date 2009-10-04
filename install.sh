@@ -1,7 +1,6 @@
 #!/bin/sh
 
 mkdir -p /usr/share/gtweetbar
-cp -R ./ui /usr/share/gtweetbar/
 cp -R ./python_twitter /usr/share/gtweetbar/
 cp README /usr/share/gtweetbar/
 
