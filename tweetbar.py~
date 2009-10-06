@@ -15,8 +15,8 @@ import gnomeapplet
 
 class TweetBar(object):
 
-	username = "username"
-	password = "***"
+	username = "gtweetbar"
+	password = "newman"
 	oldTweet = ""
 
 	def __init__(self,applet):
