@@ -21,6 +21,6 @@
         <oaf_attribute name="name" type="string" value="Gnome Twitter Bar"/>
         <oaf_attribute name="description" type="string" value="Helps you post updates on twitter.com right from the Gnome desktop."/>
         <oaf_attribute name="panel:category" type="string" value="Utility"/>
-        <oaf_attribute name="panel:icon" type="string" value="/usr/share/gtweetbar/ui/n.png"/>
+        <oaf_attribute name="panel:icon" type="string" value="/usr/share/gtweetbar/ui/twitter.png"/>
 </oaf_server>
 </oaf_info>
