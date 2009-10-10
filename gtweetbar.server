@@ -1,0 +1,26 @@
+<oaf_info>
+<oaf_server iid="OAFIID:GNOME_TweetBarApplet_Factory"
+            type="exe" location="/usr/local/bin/tweetbar.py">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:Bonobo/GenericFactory:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Gnome Tweet Bar"/>
+        <oaf_attribute name="description" type="string" value="Helps you post tweets right from the Gnome desktop."/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_PythonPanelApplet"
+            type="factory" location="OAFIID:GNOME_TweetBarApplet_Factory">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+                <item value="IDL:Bonobo/Control:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Gnome Tweet Bar"/>
+        <oaf_attribute name="description" type="string" value="Helps you post updates on twitter.com right from the Gnome desktop."/>
+        <oaf_attribute name="panel:category" type="string" value="Utility"/>
+        <oaf_attribute name="panel:icon" type="string" value="/usr/share/gtweetbar/ui/icons/twitter.png"/>
+</oaf_server>
+</oaf_info>

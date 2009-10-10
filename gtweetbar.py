@@ -50,7 +50,7 @@ class TweetBar(object):
 		
 		self.lblLeft = gtk.Label("140")
 		
-		self.main_hbox = gtk.HBox()
+		main_hbox = gtk.HBox()
 		self.main_hbox.pack_start(self.btnPrefs, False, False, 0)
 		self.main_hbox.pack_start(self.txtTweet, False, False, 4)
 		self.main_hbox.pack_start(self.lblLeft, False, False, 4)
