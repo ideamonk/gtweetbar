@@ -54,6 +54,9 @@ Testing:
 Todo:
 =====
 
+    [ ] gtk.gdk.Color() doesn't take "#XXXXXX" format on old gtk - 
+        as seen on Ubuntu 8.10 lts running python 2.5.x
+    [+] #91 txtUsername.set_text() can't take None
     [ ] Some kind of alert for invalid credentials
     [+] more organized code, more comments
     [+] twitter's cyanish color...
