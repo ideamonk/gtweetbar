@@ -10,6 +10,7 @@
 # ======================================================================
 
 INSTALL_PATH = "/usr/share/gtweetbar"
+#INSTALL_PATH = "."			# uncomment this for testing without installation
 
 import pygtk
 pygtk.require("2.0")
