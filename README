@@ -73,3 +73,4 @@ Todo:
     [+] safe and easy testing without hassles of install.sh
     [ ] remove hexcodes for color to give backward compatibility
     [+] height issues resolved to keeping it defualt
+    [ ] http://paste.debian.net/48776 to be looked into

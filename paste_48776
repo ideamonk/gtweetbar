@@ -1,0 +1,21 @@
+sindhu@sindhu-eee:~/Desktop/ideamonk-gtweetbar-708c9b0$ python ./gtweetbar.py run-in-window
+Traceback (most recent call last):
+  File "./gtweetbar.py", line 24, in <module>
+    import twitter
+  File "build/bdist.linux-i686/egg/twitter.py", line 27, in <module>
+  File "build/bdist.linux-i686/egg/simplejson/__init__.py", line 108, in <module>
+    
+  File "build/bdist.linux-i686/egg/simplejson/decoder.py", line 7, in <module>
+  File "build/bdist.linux-i686/egg/simplejson/scanner.py", line 5, in <module>
+  File "build/bdist.linux-i686/egg/simplejson/_speedups.py", line 7, in <module>
+  File "build/bdist.linux-i686/egg/simplejson/_speedups.py", line 3, in __bootstrap__
+  File "/usr/lib/python2.6/dist-packages/pkg_resources.py", line 2553, in <module>
+    working_set = WorkingSet()
+  File "/usr/lib/python2.6/dist-packages/pkg_resources.py", line 384, in __init__
+    self.add_entry(entry)
+  File "/usr/lib/python2.6/dist-packages/pkg_resources.py", line 399, in add_entry
+    for dist in find_distributions(entry, True):
+  File "/usr/lib/python2.6/dist-packages/pkg_resources.py", line 1659, in find_on_path
+    for entry in os.listdir(path_item):
+OSError: [Errno 13] Permission denied: '/usr/share/gtweetbar/python_twitter'
+sindhu@sindhu-eee:~/Desktop/ideamonk-gtweetbar-708c9b0$ 
