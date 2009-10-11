@@ -35,15 +35,7 @@ class TweetBar(object):
 	
 	def on_change_size (self):
 		''' Todo: do something about your size '''
-    
-    def on_change_background(self, applet, type, color, pixmap):
-		applet.set_style(None)
-		applet.modify_style(gtk.RcStyle())
-		if (type == gnomeapplet.COLOR_BACKGROUND):
-				applet.modify_bg(gtk.STATE_NORMAL, color)
-		elif (type == gnomeapplet.PIXMAP_BACKGROUND):
-				applet.get_style().bg_pixmap[gtk.STATE_NORMAL] = pixmap
- 	
+    	
  	def on_btnPrefs_clicked(self,button):
 		self.get_credentials("GTweetBar Preferences")
 	
@@ -167,11 +159,14 @@ class TweetBar(object):
 		# lets save a reference for future use
 		self.applet = applet
 		self.applet.connect("change-size", self.on_change_size)
-		self.applet.connect("change-background", self.on_change_background)
     
 		## interface build up
 		self.applet.set_background_widget(self.applet)
 		ev_box = gtk.EventBox()
+		# label's don't have their own window, hence they are modify_bg immune
+		# wow hexcodex on the fly... makes sense.
+		ev_box.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
+		
 		
 		# preference button
 		imgPrefs = gtk.Image()
@@ -191,7 +186,9 @@ class TweetBar(object):
 		self.txtTweet = gtk.Entry()
 		self.txtTweet.set_max_length(self.MaxChars)
 		# it might turn out to be netbook incompatible
-		self.txtTweet.set_size_request(200,20)
+		self.txtTweet.set_size_request(200,18)
+		self.txtTweet.modify_base(gtk.STATE_NORMAL,gtk.gdk.Color ("#E5F7FF"))
+		self.txtTweet.modify_text(gtk.STATE_NORMAL,gtk.gdk.Color ("#000000"))
 		self.txtTweet.connect("button_press_event",self.on_txtTweet_button_press_event)
 		self.txtTweet.connect("button_release_event", self.on_txtTweet_button_release_event)
 		self.txtTweet.connect("changed",self.on_txtTweet_changed)
