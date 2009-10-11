@@ -28,9 +28,9 @@ class TweetBar(object):
 	MaxChars = 140
 	
 	def config_event(self, gconf_client, *args, **kwargs):
-	''' refresh credentials '''
-	self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
-	self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
+		''' refresh credentials '''
+		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
+		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
 				
 				
 	def on_change_size (self):
@@ -63,7 +63,7 @@ class TweetBar(object):
 		hbox1.pack_start(lblUsername,False,False,2)
 		hbox1.pack_start(txtUsername,False,False,2)
 		hbox2.pack_start(lblPassword,False,False,2)
-		hbox2.pack_start(txtPassword,False,False,6)
+		hbox2.pack_start(txtPassword,False,False,6)	# this padding is dependent on theme/etc
 
 		dia.vbox.pack_start(gtk.Label(message),False,False,10)
 		dia.vbox.pack_start(hbox1)
@@ -142,7 +142,12 @@ class TweetBar(object):
 		self.oldTweet = tweet
 		self.btnSend.set_sensitive(False)
 	
-	
+	def on_txtTweet_keypress_event(self,entry,event):
+		if (gtk.gdk.keyval_name(event.keyval) == 'Return'):
+			self.TweetThat()
+			self.txtTweet.select_region(0,-1)			# select the sent tweet for easy removal
+		
+		
 	def __init__(self,applet):
 		self.api = twitter.Api()
 		self.gconf_client = gconf.client_get_default()
@@ -176,6 +181,7 @@ class TweetBar(object):
 		self.txtTweet.connect("button_press_event",self.on_txtTweet_button_press_event)
 		self.txtTweet.connect("button_release_event", self.on_txtTweet_button_release_event)
 		self.txtTweet.connect("changed",self.on_txtTweet_changed)
+		self.txtTweet.connect("key-press-event",self.on_txtTweet_keypress_event)
 		
 		self.lblLeft = gtk.Label("140")
 		

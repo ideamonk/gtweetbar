@@ -28,9 +28,9 @@ class TweetBar(object):
 	MaxChars = 140
 	
 	def config_event(self, gconf_client, *args, **kwargs):
-	''' refresh credentials '''
-	self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
-	self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
+		''' refresh credentials '''
+		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
+		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
 				
 				
 	def on_change_size (self):
@@ -63,7 +63,7 @@ class TweetBar(object):
 		hbox1.pack_start(lblUsername,False,False,2)
 		hbox1.pack_start(txtUsername,False,False,2)
 		hbox2.pack_start(lblPassword,False,False,2)
-		hbox2.pack_start(txtPassword,False,False,6)
+		hbox2.pack_start(txtPassword,False,False,6)	# this padding is dependent on theme/etc
 
 		dia.vbox.pack_start(gtk.Label(message),False,False,10)
 		dia.vbox.pack_start(hbox1)
@@ -142,7 +142,11 @@ class TweetBar(object):
 		self.oldTweet = tweet
 		self.btnSend.set_sensitive(False)
 	
-	
+	def on_txtTweet_keypress_event(self,entry,event):
+		if (gtk.gdk.keyval_name(event.keyval) == 'Return'):
+			self.TweetThat()
+		
+		
 	def __init__(self,applet):
 		self.api = twitter.Api()
 		self.gconf_client = gconf.client_get_default()
@@ -176,6 +180,7 @@ class TweetBar(object):
 		self.txtTweet.connect("button_press_event",self.on_txtTweet_button_press_event)
 		self.txtTweet.connect("button_release_event", self.on_txtTweet_button_release_event)
 		self.txtTweet.connect("changed",self.on_txtTweet_changed)
+		self.txtTweet.connect("key-press-event",self.on_txtTweet_keypress_event)
 		
 		self.lblLeft = gtk.Label("140")
 		
@@ -183,7 +188,7 @@ class TweetBar(object):
 		main_hbox.pack_start(self.btnPrefs, False, False, 0)
 		main_hbox.pack_start(self.txtTweet, False, False, 4)
 		main_hbox.pack_start(self.lblLeft, False, False, 4)
-		main_hbox.pack_start(self.btnSend, False, False, 4)
+		main_hbox.pack_start(self.btnSend, False, False, 0)
 		
 		# lets load the config before we show up the ui
 		
