@@ -46,6 +46,13 @@ Testing:
    To add to your gnome panel, right-click on a panel, choose Add to Panel, and
    select Gnome TweetBar from the list.
    
+   ***
+   However if you do not wish to run a suspicious install.sh under root,
+   you can easily test it by uncommenting line 13 in gtweetbar.py and running it
+   as
+    
+      $ python ./gtweetbar.py run-in-window
+   
    First time it would ask you for twitter credentials.
    
    *NOTE - A lot more needs to be done so don't get frustated, do send some
