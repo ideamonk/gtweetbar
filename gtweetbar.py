@@ -76,6 +76,13 @@ class TweetBar(object):
 		''' refresh credentials on change '''
 		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
 		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
+	
+	def on_dia_keypress_event(self,dialog,event):
+		if (gtk.gdk.keyval_name(event.keyval) == 'Return'):
+			self.username = self.txtUsername.get_text()
+			self.password = self.txtPassword.get_text()
+			self.update_settings()
+			dialog.destroy()
 		
  	## Methods =================================================================
 	def get_credentials(self,message):
@@ -85,19 +92,23 @@ class TweetBar(object):
 				          gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,  #binary flags or'ed together
 				          (gtk.STOCK_OK, gtk.RESPONSE_OK))
 				          
-		txtUsername = gtk.Entry()
-		txtPassword = gtk.Entry()
-		txtPassword.set_visibility(False)				# a password box :)
+		# connections for fata-fat working
+		dia.connect ("key-press-event",self.on_dia_keypress_event)
+		
+		self.txtUsername = gtk.Entry()								# need to be referred later
+		self.txtPassword = gtk.Entry()
+		self.txtPassword.set_visibility(False)				# a password box :)
 		lblUsername = gtk.Label ("Username : ")
 		lblPassword = gtk.Label ("Password : ")
-			
+		
 		# load pre-stored credentials into the text boxes
 		try:
-			txtUsername.set_text (self.username)
-			txtPassword.set_text (self.password)
+			# it might be None which is not understood by the bindings
+			self.txtUsername.set_text (self.username)
+			self.txtPassword.set_text (self.password)
 		except:
-			txtUsername.set_text ("")
-			txtPassword.set_text ("")
+			self.txtUsername.set_text ("")
+			self.txtPassword.set_text ("")
 
 		hbox1 = gtk.HBox()
 		hbox2 = gtk.HBox()
@@ -111,9 +122,9 @@ class TweetBar(object):
 								===============
 		'''
 		hbox1.pack_start(lblUsername,False,False,2)
-		hbox1.pack_start(txtUsername,False,False,2)
+		hbox1.pack_start(self.txtUsername,False,False,2)
 		hbox2.pack_start(lblPassword,False,False,2)
-		hbox2.pack_start(txtPassword,False,False,6)	# this padding is dependent on theme/etc
+		hbox2.pack_start(self.txtPassword,False,False,6)	# this padding is dependent on theme/etc
 		dia.vbox.pack_start(gtk.Label(message),False,False,10)
 		dia.vbox.pack_start(hbox1)
 		dia.vbox.pack_start(hbox2)
@@ -123,8 +134,8 @@ class TweetBar(object):
 		
 		if result == gtk.RESPONSE_OK:
 			# lets verify
-			username = txtUsername.get_text()
-			password = txtPassword.get_text()
+			username = self.txtUsername.get_text()
+			password = self.txtPassword.get_text()
 			if (username=="" or password == "" or len(password)<=4):
 				# something wen't wrong
 				dia.destroy()
