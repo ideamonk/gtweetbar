@@ -54,6 +54,7 @@ class TweetBar(object):
 				          
 		txtUsername = gtk.Entry()
 		txtPassword = gtk.Entry()
+		txtPassword.set_visibility(False)				# a password box :)
 		lblUsername = gtk.Label ("Username : ")
 		lblPassword = gtk.Label ("Password : ")
 			
