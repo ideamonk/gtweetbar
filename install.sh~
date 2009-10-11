@@ -8,7 +8,6 @@
 # it under the terms of the GNU General Public License version 2 as
 # published by the Free Software Foundation.
 # ======================================================================
-
 echo 'GTweetBar 1.0 Installer'
 echo ' *** you must be a super user to be able to install *** '
 echo ' '
