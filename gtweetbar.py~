@@ -6,6 +6,7 @@ import pygtk
 pygtk.require("2.0")
 import gtk
 import gnomeapplet
+import gconf
 
 # make local copy of twitter api importable
 import sys
@@ -14,20 +15,19 @@ import twitter
 
 
 class TweetBar(object):
-
-	username = "username"
-	password = "***"
 	oldTweet = ""
 	MaxChars = 140
 	
 	def __init__(self,applet):
 		self.api = twitter.Api()
+		self.gconf_client = gconf.client_get_default()
+		#self.gconf_client.notify_add("/apps/gtweetbar/auth", self.config_event)
 		
 		# lets save a reference for future use
 		self.applet = applet
 		self.applet.connect("change-size", self.on_change_size)
 		self.applet.connect("change-background", self.change_background)
-        
+    
 		# interface build up
 		self.applet.set_background_widget(self.applet)
 		ev_box = gtk.EventBox()
@@ -58,11 +58,28 @@ class TweetBar(object):
 		main_hbox.pack_start(self.lblLeft, False, False, 4)
 		main_hbox.pack_start(self.btnSend, False, False, 4)
 		
+		# lets load the config before we show up the ui
+		self.gconf_client.set_string("/apps/gtweetbar/auth/username","")
+		self.gconf_client.set_string("/apps/gtweetbar/auth/password","")
+		
+		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
+		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
+
+		if (self.username == None or self.username == ""):
+			# ask username and password from user
+			self.get_credentials("You need to add your twitter account to gtweetbar.")
+						
 		ev_box.add(main_hbox)
 		applet.add(ev_box)
 		applet.show_all()
 
 	
+	def config_event(self, gconf_client, *args, **kwargs):
+		''' refresh credentials '''
+		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
+		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
+				
+				
 	def on_change_size (self):
 		''' Todo: do something about your size '''
       
@@ -76,6 +93,53 @@ class TweetBar(object):
 				applet.get_style().bg_pixmap[gtk.STATE_NORMAL] = pixmap
 
 
+	def get_credentials(self,message):
+		dia = gtk.Dialog('Gnome TweetBar',
+				          self.applet.get_toplevel(),  #the toplevel wgt of your app
+				          gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,  #binary flags or'ed together
+				          (gtk.STOCK_OK, gtk.RESPONSE_OK))
+				          
+		txtUsername = gtk.Entry()
+		txtPassword = gtk.Entry()
+		lblUsername = gtk.Label ("Username : ")
+		lblPassword = gtk.Label ("Password : ")
+
+		hbox1 = gtk.HBox()
+		hbox2 = gtk.HBox()
+
+		hbox1.pack_start(lblUsername,False,False,2)
+		hbox1.pack_start(txtUsername,False,False,2)
+		hbox2.pack_start(lblPassword,False,False,2)
+		hbox2.pack_start(txtPassword,False,False,6)
+
+		dia.vbox.pack_start(gtk.Label(message),False,False,10)
+		dia.vbox.pack_start(hbox1)
+		dia.vbox.pack_start(hbox2)
+		
+		dia.show_all()
+		result = dia.run()
+		if result == gtk.RESPONSE_OK:
+			# lets verify
+			username = txtUsername.get_text()
+			password = txtPassword.get_text()
+			if (username=="" or password == "" or len(password)<=4):
+				# something wen't wrong
+				dia.destroy()
+				self.get_credentials("Hey enter something real!")
+				return
+			else:
+				# okay so lets store this credential
+				self.username = username
+				self.password = password
+				self.update_settings()
+				
+		dia.destroy()
+
+
+	def update_settings(self):
+		self.gconf_client.set_string("/apps/gtweetbar/auth/username",self.username)
+		self.gconf_client.set_string("/apps/gtweetbar/auth/password",self.password)
+		
 	def on_txtTweet_button_press_event(self, widget,event):
 		''' give the focus to Applet so that Entry is accessible '''
 		self.applet.request_focus(long(event.time))
