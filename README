@@ -70,3 +70,6 @@ Todo:
     [+] twitter's cyanish color...
     [ ] alerts for failed tweets...
     [ ] loads of exception handling here and there
+    [+] safe and easy testing without hassles of install.sh
+    [ ] remove hexcodes for color to give backward compatibility
+    [+] height issues resolved to keeping it defualt
