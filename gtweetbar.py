@@ -56,6 +56,10 @@ class TweetBar(object):
 		txtPassword = gtk.Entry()
 		lblUsername = gtk.Label ("Username : ")
 		lblPassword = gtk.Label ("Password : ")
+			
+		# load pre-stored credentials into the text boxes
+		txtUsername.set_text (self.username)
+		txtPassword.set_text (self.password)
 
 		hbox1 = gtk.HBox()
 		hbox2 = gtk.HBox()
