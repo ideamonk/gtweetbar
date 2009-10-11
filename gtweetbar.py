@@ -153,6 +153,7 @@ class TweetBar(object):
 	## Big Bang -- where it all began :P =======================================	
 	def __init__(self,applet):
 		self.api = twitter.Api()
+		self.api.SetSource('GTweetBar')
 		self.gconf_client = gconf.client_get_default()
 		#self.gconf_client.notify_add("/apps/gtweetbar/auth", self.config_event)
 		
