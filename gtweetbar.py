@@ -27,14 +27,17 @@ import twitter
 class TweetBar(object):
 	oldTweet = ""
 	MaxChars = 140
+	applet_width = 200
+	txtTweet_padding = 2
 	
 	## Events ==================================================================
 	def on_txtTweet_keypress_event(self,entry,event):
 		if (gtk.gdk.keyval_name(event.keyval) == 'Return'):
 			self.TweetThat()
-			self.txtTweet.select_region(0,-1)			# select the sent tweet for easy removal
+			# auto select the sent tweet for easy removal
+			self.txtTweet.select_region(0,-1)
 	
-	def on_change_size (self):
+	def on_change_size (self,applet,new_size):
 		''' Todo: do something about your size '''
     	
  	def on_btnPrefs_clicked(self,button):
@@ -170,7 +173,8 @@ class TweetBar(object):
 		self.applet.set_background_widget(self.applet)
 		ev_box = gtk.EventBox()
 		# label's don't have their own window, hence they are modify_bg immune
-		# wow hexcodex on the fly... makes sense.
+		# wow hexcode on the fly... makes sense.
+		# :/ turns out that on Ubuntu 8.10 hexcode failed
 		ev_box.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
 		
 		# preference button
@@ -193,7 +197,9 @@ class TweetBar(object):
 		self.txtTweet = gtk.Entry()
 		self.txtTweet.set_max_length(self.MaxChars)
 		# it might turn out to be netbook incompatible
-		self.txtTweet.set_size_request(200,18)
+		self.txtTweet.set_size_request(
+				self.applet_width, self.txtTweet.size_request()[1] # default height
+			)
 		self.txtTweet.modify_base(gtk.STATE_NORMAL,gtk.gdk.Color ("#E5F7FF"))
 		self.txtTweet.modify_text(gtk.STATE_NORMAL,gtk.gdk.Color ("#000000"))
 		self.txtTweet.connect("button_press_event",self.on_txtTweet_button_press_event)
@@ -205,11 +211,11 @@ class TweetBar(object):
 		self.lblLeft.modify_fg(gtk.STATE_NORMAL,gtk.gdk.Color("#000000"))
 		
 		# packup everything into their respective places
-		main_hbox = gtk.HBox()
-		main_hbox.pack_start(self.btnPrefs, False, False, 0)
-		main_hbox.pack_start(self.txtTweet, False, False, 4)
-		main_hbox.pack_start(self.lblLeft, False, False, 4)
-		main_hbox.pack_start(self.btnSend, False, False, 0)
+		self.main_hbox = gtk.HBox()			# main_hbox can be useful for resize event
+		self.main_hbox.pack_start(self.btnPrefs, False, False, 0)
+		self.main_hbox.pack_start(self.txtTweet, False, False, self.txtTweet_padding)
+		self.main_hbox.pack_start(self.lblLeft, False, False, 4)
+		self.main_hbox.pack_start(self.btnSend, False, False, 0)
 		
 		# lets load the config before we show up the ui
 		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
@@ -219,7 +225,7 @@ class TweetBar(object):
 			# ask username and password from user for first run
 			self.get_credentials("You need to add your twitter account to gtweetbar.")
 						
-		ev_box.add(main_hbox)
+		ev_box.add(self.main_hbox)
 		applet.add(ev_box)
 		applet.show_all()
 		
