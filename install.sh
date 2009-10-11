@@ -12,6 +12,11 @@
 echo 'GTweetBar 1.0 Installer'
 echo ' *** you must be a super user to be able to install *** '
 echo ' '
+
+echo 'installing simplejson...'
+apt-get install python-setuptools
+easy_install simplejson
+
 echo 'Creating /usr/share/gtweetbar'
 mkdir -p /usr/share/gtweetbar
 
