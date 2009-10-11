@@ -23,7 +23,19 @@
 |_|              (_____|     
 
 
+
+Snapshots:
+==========
+
+   http://twitpic.com/l3rjl
+   http://twitpic.com/l3oim
+   http://twitpic.com/l3o5n
+   http://twitpic.com/l3ml9
+
+
 Testing:
+========
+
    If you wish to try out grab the tarball, extract it, goto the extracted folder 
    and simply issue the following -
    
@@ -40,6 +52,8 @@ Testing:
             useful feedback though
 
 Todo:
+=====
+
     [ ] Some kind of alert for invalid credentials
     [+] more organized code, more comments
     [+] twitter's cyanish color...
