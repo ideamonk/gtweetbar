@@ -21,3 +21,11 @@
 | | | | |  | |_| ( ( | | |  ( (/ /|___ |___ |
 | ||_/|_|   \___/ \_|| |_|   \____|___/(___/ 
 |_|              (_____|     
+
+
+Todo
+    [ ] Some kind of alert for invalid credentials
+    [+] more organized code, more comments
+    [ ] twitter's cyanish color...
+    [ ] alerts for failed tweets...
+    [ ] loads of exception handling here and there

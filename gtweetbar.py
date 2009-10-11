@@ -102,7 +102,7 @@ class TweetBar(object):
 		hbox1 = gtk.HBox()
 		hbox2 = gtk.HBox()
 
-		# packup everything into
+		# packup everything into a vbox
 		'''
 								+-vbox---------
 								|  [hbox1]    |
