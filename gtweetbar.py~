@@ -3,7 +3,7 @@
  
 # ======================================================================
 # Copyright (C) 2009 Abhishek Mishra <ideamonk@gmail.com>
-# Time-stamp: Sat Aug  1 20:27:22 IST 2009
+# Time-stamp: Sun Oct 04 12:11:57 IST 2009
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
 # published by the Free Software Foundation.
@@ -27,67 +27,10 @@ class TweetBar(object):
 	oldTweet = ""
 	MaxChars = 140
 	
-	def __init__(self,applet):
-		self.api = twitter.Api()
-		self.gconf_client = gconf.client_get_default()
-		#self.gconf_client.notify_add("/apps/gtweetbar/auth", self.config_event)
-		
-		# lets save a reference for future use
-		self.applet = applet
-		self.applet.connect("change-size", self.on_change_size)
-		self.applet.connect("change-background", self.change_background)
-    
-		# interface build up
-		self.applet.set_background_widget(self.applet)
-		ev_box = gtk.EventBox()
-		imgPrefs = gtk.Image()
-		imgPrefs.set_from_stock (gtk.STOCK_PREFERENCES, gtk.ICON_SIZE_BUTTON)
-		
-		self.btnPrefs = gtk.Button()
-		self.btnPrefs.set_image(imgPrefs)
-		
-		imgEnter = gtk.Image()
-		imgEnter.set_from_stock (gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON)
-		self.btnSend = gtk.Button()
-		self.btnSend.set_image(imgEnter)		
-		self.btnSend.connect ("clicked",self.on_btnSend_clicked)
-		
-		self.txtTweet = gtk.Entry()
-		self.txtTweet.set_max_length(self.MaxChars)
-		self.txtTweet.set_size_request(200,20)							# so netbook incompatible it might turn out to be
-		self.txtTweet.connect("button_press_event",self.on_txtTweet_button_press_event)
-		self.txtTweet.connect("button_release_event", self.on_txtTweet_button_release_event)
-		self.txtTweet.connect("changed",self.on_txtTweet_changed)
-		
-		self.lblLeft = gtk.Label("140")
-		
-		main_hbox = gtk.HBox()
-		main_hbox.pack_start(self.btnPrefs, False, False, 0)
-		main_hbox.pack_start(self.txtTweet, False, False, 4)
-		main_hbox.pack_start(self.lblLeft, False, False, 4)
-		main_hbox.pack_start(self.btnSend, False, False, 4)
-		
-		# lets load the config before we show up the ui
-		## Todo: remove these 2 lines
-		self.gconf_client.set_string("/apps/gtweetbar/auth/username","")
-		self.gconf_client.set_string("/apps/gtweetbar/auth/password","")
-		
-		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
-		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
-
-		if (self.username == None or self.username == ""):
-			# ask username and password from user
-			self.get_credentials("You need to add your twitter account to gtweetbar.")
-						
-		ev_box.add(main_hbox)
-		applet.add(ev_box)
-		applet.show_all()
-
-	
 	def config_event(self, gconf_client, *args, **kwargs):
-		''' refresh credentials '''
-		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
-		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
+	''' refresh credentials '''
+	self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
+	self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
 				
 				
 	def on_change_size (self):
@@ -146,6 +89,10 @@ class TweetBar(object):
 		dia.destroy()
 
 
+	def on_btnPrefs_clicked(self,button):
+		self.get_credentials("GTweetBar Preferences")
+	
+
 	def update_settings(self):
 		self.gconf_client.set_string("/apps/gtweetbar/auth/username",self.username)
 		self.gconf_client.set_string("/apps/gtweetbar/auth/password",self.password)
@@ -194,8 +141,64 @@ class TweetBar(object):
 		
 		self.oldTweet = tweet
 		self.btnSend.set_sensitive(False)
+	
+	
+	def __init__(self,applet):
+		self.api = twitter.Api()
+		self.gconf_client = gconf.client_get_default()
+		#self.gconf_client.notify_add("/apps/gtweetbar/auth", self.config_event)
+		
+		# lets save a reference for future use
+		self.applet = applet
+		self.applet.connect("change-size", self.on_change_size)
+		self.applet.connect("change-background", self.change_background)
+    
+		# interface build up
+		self.applet.set_background_widget(self.applet)
+		ev_box = gtk.EventBox()
+		imgPrefs = gtk.Image()
+		imgPrefs.set_from_stock (gtk.STOCK_PREFERENCES, gtk.ICON_SIZE_BUTTON)
+		
+		self.btnPrefs = gtk.Button()
+		self.btnPrefs.set_image(imgPrefs)
+		self.btnPrefs.connect("clicked",self.on_btnPrefs_clicked)
+		
+		imgEnter = gtk.Image()
+		imgEnter.set_from_stock (gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON)
+		self.btnSend = gtk.Button()
+		self.btnSend.set_image(imgEnter)		
+		self.btnSend.connect ("clicked",self.on_btnSend_clicked)
+		
+		self.txtTweet = gtk.Entry()
+		self.txtTweet.set_max_length(self.MaxChars)
+		# so netbook incompatible it might turn out to be
+		self.txtTweet.set_size_request(200,20)
+		self.txtTweet.connect("button_press_event",self.on_txtTweet_button_press_event)
+		self.txtTweet.connect("button_release_event", self.on_txtTweet_button_release_event)
+		self.txtTweet.connect("changed",self.on_txtTweet_changed)
+		
+		self.lblLeft = gtk.Label("140")
+		
+		main_hbox = gtk.HBox()
+		main_hbox.pack_start(self.btnPrefs, False, False, 0)
+		main_hbox.pack_start(self.txtTweet, False, False, 4)
+		main_hbox.pack_start(self.lblLeft, False, False, 4)
+		main_hbox.pack_start(self.btnSend, False, False, 4)
+		
+		# lets load the config before we show up the ui
+		
+		self.username = self.gconf_client.get_string("/apps/gtweetbar/auth/username")
+		self.password = self.gconf_client.get_string("/apps/gtweetbar/auth/password")
 
-
+		if (self.username == None or self.username == ""):
+			# ask username and password from user
+			self.get_credentials("You need to add your twitter account to gtweetbar.")
+						
+		ev_box.add(main_hbox)
+		applet.add(ev_box)
+		applet.show_all()
+		
+		
 
 def applet_factory(applet,oiid):
 	TweetBar(applet)
