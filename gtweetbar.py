@@ -167,13 +167,13 @@ class TweetBar(object):
 		# wow hexcodex on the fly... makes sense.
 		ev_box.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
 		
-		
 		# preference button
 		imgPrefs = gtk.Image()
 		imgPrefs.set_from_stock (gtk.STOCK_PREFERENCES, gtk.ICON_SIZE_BUTTON)
 		self.btnPrefs = gtk.Button()
 		self.btnPrefs.set_image(imgPrefs)
 		self.btnPrefs.connect("clicked",self.on_btnPrefs_clicked)
+		self.btnPrefs.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
 		
 		# send button
 		imgEnter = gtk.Image()
@@ -181,6 +181,7 @@ class TweetBar(object):
 		self.btnSend = gtk.Button()
 		self.btnSend.set_image(imgEnter)		
 		self.btnSend.connect ("clicked",self.on_btnSend_clicked)
+		self.btnSend.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
 		
 		# Entry box for tweet
 		self.txtTweet = gtk.Entry()
@@ -195,6 +196,7 @@ class TweetBar(object):
 		self.txtTweet.connect("key-press-event",self.on_txtTweet_keypress_event)
 		
 		self.lblLeft = gtk.Label("140")
+		self.lblLeft.modify_fg(gtk.STATE_NORMAL,gtk.gdk.Color("#000000"))
 		
 		# packup everything into their respective places
 		main_hbox = gtk.HBox()
