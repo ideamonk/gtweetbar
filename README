@@ -37,24 +37,26 @@ Testing:
 ========
 
    If you wish to try out grab the tarball, extract it, goto the extracted folder 
-   and simply issue the following -
+   and simply do the following -
    
-      $ chmod u+x ./install.sh
-      $ sudo ./install.sh
-      
-   Now, to try out in a window - $ python ./gtweetbar.py run-in-window
-   To add to your gnome panel, right-click on a panel, choose Add to Panel, and
-   select Gnome TweetBar from the list.
+   $ python ./gtweetbar.py run-in-window
    
-   ***
-   However if you do not wish to run a suspicious install.sh under root,
-   you can easily test it by uncommenting line 13 in gtweetbar.py and running it
-   as
-    
-      $ python ./gtweetbar.py run-in-window
+   To add to your gnome panel, install it first -
    
-   First time it would ask you for twitter credentials.
+   $ chmod u+x ./install.sh
+   $ sudo ./install.sh
    
+   Now right-click on a panel, choose Add to Panel, and select Gnome TweetBar 
+   from the list.
+   
+   ***  First time it would ask you for twitter credentials.
+        you can change it from preferences window, hit the icon on left of bar
+  
+   ***  To uninstall do this -
+        
+        $ sudo sh ./uninstall.sh
+        
+        
    *NOTE - A lot more needs to be done so don't get frustated, do send some
             useful feedback though
 
