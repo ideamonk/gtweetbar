@@ -72,8 +72,8 @@ Todo:
     [ ] alerts for failed tweets...
     [ ] loads of exception handling here and there
     [+] safe and easy testing without hassles of install.sh
-    [ ] remove hexcodes for color to give backward compatibility
     [+] height issues resolved to keeping it defualt
     [+] http://paste.debian.net/48776 to be looked into
         - made INSTALL_PATH more universal, now one can try without installing
-    [ ] issue #1 http://github.com/ideamonk/gtweetbar/issues/#issue/1
+    [+] issue #1 http://github.com/ideamonk/gtweetbar/issues/#issue/1
+        - main_window.set_resizable(False) did it :)

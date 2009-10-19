@@ -254,11 +254,13 @@ def applet_factory(applet,oiid):
 if len(sys.argv) == 2 and sys.argv[1] == "run-in-window":  
 	print "running in window"
 	main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+	main_window.set_resizable(False)
 	main_window.set_title("Python Applet")
 	main_window.connect("destroy", gtk.main_quit) 
 	app = gnomeapplet.Applet()
 	applet_factory(app, None)
 	app.reparent(main_window)
+	
 	main_window.show_all()
 	gtk.main()
 	sys.exit()
