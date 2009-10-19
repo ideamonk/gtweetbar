@@ -10,7 +10,6 @@
 # ======================================================================
 
 INSTALL_PATH = "/usr/share/gtweetbar"
-#INSTALL_PATH = "."			# uncomment this for testing without installation
 
 import pygtk
 pygtk.require("2.0")
@@ -20,7 +19,13 @@ import gconf
 
 # make local copy of twitter api importable
 import sys
-sys.path.append(INSTALL_PATH + '/python_twitter')
+
+if len(sys.argv) == 2 and sys.argv[1] == "run-in-window":
+	sys.path.append('./python_twitter')
+else:
+	INSTALL_PATH = "."
+	sys.path.append(INSTALL_PATH + '/python_twitter')
+	
 import twitter
 
 class TweetBar(object):
