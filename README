@@ -61,8 +61,9 @@ Testing:
 Todo:
 =====
 
-    [ ] gtk.gdk.Color() doesn't take "#XXXXXX" format on old gtk - 
+    [+] gtk.gdk.Color() doesn't take "#XXXXXX" format on old gtk - 
         as seen on Ubuntu 8.10 lts running python 2.5.x
+        replaced by gtk.gdk.color_parse
     [+] #91 txtUsername.set_text() can't take None
     [+] Enter key in preferences window should do the job
     [ ] Some kind of alert for invalid credentials
