@@ -23,7 +23,6 @@ import sys
 sys.path.append(INSTALL_PATH + '/python_twitter')
 import twitter
 
-
 class TweetBar(object):
 	oldTweet = ""
 	MaxChars = 140
@@ -115,16 +114,17 @@ class TweetBar(object):
 
 		# packup everything into a vbox
 		'''
-								+-vbox---------
-								|  [hbox1]    |
-								|  [hbox2]    |
-								|        [ok] |
-								===============
+						+-vbox---------
+						|  [hbox1]    |
+						|  [hbox2]    |
+						|        [ok] |
+						===============
 		'''
 		hbox1.pack_start(lblUsername,False,False,2)
 		hbox1.pack_start(self.txtUsername,False,False,2)
 		hbox2.pack_start(lblPassword,False,False,2)
-		hbox2.pack_start(self.txtPassword,False,False,6)	# this padding is dependent on theme/etc
+		# this padding is dependent on theme/etc
+		hbox2.pack_start(self.txtPassword,False,False,6)
 		dia.vbox.pack_start(gtk.Label(message),False,False,10)
 		dia.vbox.pack_start(hbox1)
 		dia.vbox.pack_start(hbox2)
@@ -186,7 +186,7 @@ class TweetBar(object):
 		# label's don't have their own window, hence they are modify_bg immune
 		# wow hexcode on the fly... makes sense.
 		# :/ turns out that on Ubuntu 8.10 hexcode failed
-		ev_box.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
+		ev_box.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse("#93E9FF"))
 		
 		# preference button
 		imgPrefs = gtk.Image()
@@ -194,7 +194,7 @@ class TweetBar(object):
 		self.btnPrefs = gtk.Button()
 		self.btnPrefs.set_image(imgPrefs)
 		self.btnPrefs.connect("clicked",self.on_btnPrefs_clicked)
-		self.btnPrefs.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
+		self.btnPrefs.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse("#93E9FF"))
 		
 		# send button
 		imgEnter = gtk.Image()
@@ -202,7 +202,7 @@ class TweetBar(object):
 		self.btnSend = gtk.Button()
 		self.btnSend.set_image(imgEnter)		
 		self.btnSend.connect ("clicked",self.on_btnSend_clicked)
-		self.btnSend.modify_bg(gtk.STATE_NORMAL,gtk.gdk.Color("#93E9FF"))
+		self.btnSend.modify_bg(gtk.STATE_NORMAL,gtk.gdk.color_parse("#93E9FF"))
 		
 		# Entry box for tweet
 		self.txtTweet = gtk.Entry()
@@ -211,15 +211,15 @@ class TweetBar(object):
 		self.txtTweet.set_size_request(
 				self.applet_width, self.txtTweet.size_request()[1] # default height
 			)
-		self.txtTweet.modify_base(gtk.STATE_NORMAL,gtk.gdk.Color ("#E5F7FF"))
-		self.txtTweet.modify_text(gtk.STATE_NORMAL,gtk.gdk.Color ("#000000"))
+		self.txtTweet.modify_base(gtk.STATE_NORMAL,gtk.gdk.color_parse ("#E5F7FF"))
+		self.txtTweet.modify_text(gtk.STATE_NORMAL,gtk.gdk.color_parse ("#000000"))
 		self.txtTweet.connect("button_press_event",self.on_txtTweet_button_press_event)
 		self.txtTweet.connect("button_release_event", self.on_txtTweet_button_release_event)
 		self.txtTweet.connect("changed",self.on_txtTweet_changed)
 		self.txtTweet.connect("key-press-event",self.on_txtTweet_keypress_event)
 		
 		self.lblLeft = gtk.Label("140")
-		self.lblLeft.modify_fg(gtk.STATE_NORMAL,gtk.gdk.Color("#000000"))
+		self.lblLeft.modify_fg(gtk.STATE_NORMAL,gtk.gdk.color_parse("#000000"))
 		
 		# packup everything into their respective places
 		self.main_hbox = gtk.HBox()			# main_hbox can be useful for resize event
