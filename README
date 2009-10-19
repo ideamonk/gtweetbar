@@ -63,7 +63,7 @@ Todo:
 
     [+] gtk.gdk.Color() doesn't take "#XXXXXX" format on old gtk - 
         as seen on Ubuntu 8.10 lts running python 2.5.x
-        replaced by gtk.gdk.color_parse
+        - replaced by gtk.gdk.color_parse
     [+] #91 txtUsername.set_text() can't take None
     [+] Enter key in preferences window should do the job
     [ ] Some kind of alert for invalid credentials
@@ -74,5 +74,6 @@ Todo:
     [+] safe and easy testing without hassles of install.sh
     [ ] remove hexcodes for color to give backward compatibility
     [+] height issues resolved to keeping it defualt
-    [ ] http://paste.debian.net/48776 to be looked into
+    [+] http://paste.debian.net/48776 to be looked into
+        - made INSTALL_PATH more universal, now one can try without installing
     [ ] issue #1 http://github.com/ideamonk/gtweetbar/issues/#issue/1
