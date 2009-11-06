@@ -3,7 +3,7 @@
                  / _` || | \ \ /\ / / _ \/ _ \ __|  _ \ / _` | '__|
                 | (_| || |  \ V  V /  __/  __/ |_| |_) | (_| | |   
                  \__, ||_|   \_/\_/ \___|\___|\__|____/ \__,_|_|   
-                 |___/  1.0
+                 |___/  alpha
                                                       -- ideamonk at gmail.com
  -------------------------------------------------------------------------------
 
@@ -60,22 +60,3 @@ Testing:
    *NOTE - A lot more needs to be done so don't get frustated, do send some
             useful feedback though
 
-Todo:
-=====
-
-    [+] gtk.gdk.Color() doesn't take "#XXXXXX" format on old gtk - 
-        as seen on Ubuntu 8.10 lts running python 2.5.x
-        - replaced by gtk.gdk.color_parse
-    [+] #91 txtUsername.set_text() can't take None
-    [+] Enter key in preferences window should do the job
-    [ ] Some kind of alert for invalid credentials
-    [+] more organized code, more comments
-    [+] twitter's cyanish color...
-    [ ] alerts for failed tweets...
-    [ ] loads of exception handling here and there
-    [+] safe and easy testing without hassles of install.sh
-    [+] height issues resolved to keeping it defualt
-    [+] http://paste.debian.net/48776 to be looked into
-        - made INSTALL_PATH more universal, now one can try without installing
-    [+] issue #1 http://github.com/ideamonk/gtweetbar/issues/#issue/1
-        - main_window.set_resizable(False) did it :)
